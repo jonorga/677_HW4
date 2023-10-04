@@ -45,3 +45,41 @@ file_spy = preQ(file_len_spy, file_spy)
 
 file_cmg.to_csv("cmg_with_color.csv")
 file_spy.to_csv("spy_with_color.csv")
+
+
+def y2BuynHold(file_len, working_file, file_name):
+	i = 0
+	first_day = True
+	while i < file_len:
+		temp = working_file["Date"].get(i)
+		if type(temp) != Nonetype:
+			if temp.split("/")[2] == "18" and first_day:
+				initial_price = working_file["Adj Close"].get(i)
+				your_stock = 100 / initial_price
+			if temp.split("/")[2] == "19":
+				final_price = working_file["Adj Close"].get(i - 1) * your_stock
+				i = file_len
+		i += 1
+	print("For the " + file_name + " stock, the start balance was $100.00, the end balance was $" 
+		+ str(round(initial_price, 2)))
+
+y2BuynHold(file_len_cmg, file_cmg, "Chipotle")
+y2BuynHold(file_len_spy, file_spy, "Spy")
+
+def y2LabelTrade(file_len, working_file):
+	i = 0
+	balance = 100
+	while i < file_len:
+		temp = working_file["Date"].get(i)
+		if type(temp) != Nonetype:
+			if temp.split("/")[2] == "18":
+				
+		i += 1
+
+
+y2LabelTrade(file_len_cmg, file_cmg)
+y2LabelTrade(file_len_spy, file_spy)
+
+
+
+
