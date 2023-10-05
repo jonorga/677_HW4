@@ -3,6 +3,7 @@
 ###
 
 import pandas as pd
+import matplotlib.pyplot as plt
 import math
 Nonetype = type(None)
 
@@ -51,7 +52,18 @@ def GenerateDF(working_file):
 
 output_cmg = GenerateDF(file_cmg)
 output_spy = GenerateDF(file_spy)
-print(output_cmg)
 
-#output_cmg.at[0, "week"] = 1
-#output_cmg.at[1, "week"] = 3
+
+
+def GeneratePlot(frame, name):
+	scatter_plot = plt.figure()
+	axes1 = scatter_plot.add_subplot(1, 1, 1)
+	axes1.scatter(frame["Avg Return"], frame["Volatility"], color=frame["Color"], s=50)
+	axes1.set_title("Average Return vs Volatility for " + name)
+	axes1.set_xlabel("Average Return")
+	axes1.set_ylabel("Volatility")
+	scatter_plot.savefig(name + "_Avg_Return_VS_Volatility.png")
+
+GeneratePlot(output_cmg, "CMG")
+GeneratePlot(output_spy, "SPY")
+
