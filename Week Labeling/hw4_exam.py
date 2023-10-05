@@ -64,6 +64,8 @@ def GeneratePlot(frame, name):
 	axes1.set_ylabel("Volatility")
 	scatter_plot.savefig(name + "_Avg_Return_VS_Volatility.png")
 
+# One third down the page: https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html
+#TODO separate output into year 1 and 2
 GeneratePlot(output_cmg, "CMG")
 GeneratePlot(output_spy, "SPY")
 
