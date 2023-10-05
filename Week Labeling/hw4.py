@@ -60,25 +60,48 @@ def y2BuynHold(file_len, working_file, file_name):
 				final_price = working_file["Adj Close"].get(i - 1) * your_stock
 				i = file_len
 		i += 1
-	print("For the " + file_name + " stock, the start balance was $100.00, the end balance was $" 
+	print("For the " + file_name + " stock, using buy and hold, the start balance was $100.00, the end balance was $" 
 		+ str(round(initial_price, 2)))
 
 y2BuynHold(file_len_cmg, file_cmg, "Chipotle")
 y2BuynHold(file_len_spy, file_spy, "Spy")
 
-def y2LabelTrade(file_len, working_file):
+def y2LabelTrade(file_len, working_file, file_name):
 	i = 0
 	balance = 100
+	first_day = -1
+	last_day = -1
+	in_cash = True
+	your_stock = 0
 	while i < file_len:
 		temp = working_file["Date"].get(i)
 		if type(temp) != Nonetype:
 			if temp.split("/")[2] == "18":
-				
+				if first_day == -1:
+					first_day = i
+				if balance <= 0:
+					last_day = i
+					i = file_len
+				else:
+					if working_file["Color"].get(i) == "Green":
+						if in_cash:
+							your_stock = 100 / working_file["Adj Close"].get(i - 1)
+							in_cash = False
+					elif working_file["Color"].get(i) == "Red":
+						if not in_cash:
+							balance = your_stock * working_file["Adj Close"].get(i - 1)
+							in_cash = True
 		i += 1
+	if last_day == -1:
+		print("For the " + file_name + " stock, using the labels, the start balance was $100.00, the end balance was $" 
+			+ str(round(balance, 2)))
+	else:
+		print("For the " + file_name + " stock, using the labels to trade bankrupted the account after " 
+			+ str(last_day - first_day) + " days")
 
 
-y2LabelTrade(file_len_cmg, file_cmg)
-y2LabelTrade(file_len_spy, file_spy)
+y2LabelTrade(file_len_cmg, file_cmg, "Chipotle")
+y2LabelTrade(file_len_spy, file_spy, "Spy")
 
 
 
