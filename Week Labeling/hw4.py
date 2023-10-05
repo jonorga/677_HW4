@@ -56,12 +56,13 @@ def y2BuynHold(file_len, working_file, file_name):
 			if temp.split("/")[2] == "18" and first_day:
 				initial_price = working_file["Adj Close"].get(i)
 				your_stock = 100 / initial_price
+				first_day = False
 			if temp.split("/")[2] == "19":
 				final_price = working_file["Adj Close"].get(i - 1) * your_stock
 				i = file_len
 		i += 1
 	print("For the " + file_name + " stock, using buy and hold, the start balance was $100.00, the end balance was $" 
-		+ str(round(initial_price, 2)))
+		+ str(round(final_price, 2)))
 
 y2BuynHold(file_len_cmg, file_cmg, "Chipotle")
 y2BuynHold(file_len_spy, file_spy, "Spy")
