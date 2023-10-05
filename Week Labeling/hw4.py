@@ -47,7 +47,7 @@ file_cmg.to_csv("cmg_with_color.csv")
 file_spy.to_csv("spy_with_color.csv")
 
 
-def y2BuynHold(file_len, working_file, file_name):
+def y2BuynHold(file_len, working_file):
 	i = 0
 	first_day = True
 	while i < file_len:
@@ -61,13 +61,14 @@ def y2BuynHold(file_len, working_file, file_name):
 				final_price = working_file["Adj Close"].get(i - 1) * your_stock
 				i = file_len
 		i += 1
-	print("For the " + file_name + " stock, using buy and hold, the start balance was $100.00, the end balance was $" 
-		+ str(round(final_price, 2)))
+	#print("For the " + file_name + " stock, using buy and hold, the start balance was $100.00, the end balance was $" 
+	#	+ str(round(final_price, 2)))
+	return final_price
 
-y2BuynHold(file_len_cmg, file_cmg, "Chipotle")
-y2BuynHold(file_len_spy, file_spy, "Spy")
+cmg_bnh_final = y2BuynHold(file_len_cmg, file_cmg)
+spy_bnh_final = y2BuynHold(file_len_spy, file_spy)
 
-def y2LabelTrade(file_len, working_file, file_name):
+def y2LabelTrade(file_len, working_file):
 	i = 0
 	balance = 100
 	first_day = -1
@@ -93,17 +94,34 @@ def y2LabelTrade(file_len, working_file, file_name):
 							balance = your_stock * working_file["Adj Close"].get(i - 1)
 							in_cash = True
 		i += 1
-	if last_day == -1:
-		print("For the " + file_name + " stock, using the labels, the start balance was $100.00, the end balance was $" 
-			+ str(round(balance, 2)))
-	else:
-		print("For the " + file_name + " stock, using the labels to trade bankrupted the account after " 
-			+ str(last_day - first_day) + " days")
+	return balance
+	#if last_day == -1:
+	#	print("For the " + file_name + " stock, using the labels, the start balance was $100.00, the end balance was $" 
+	#		+ str(round(balance, 2)))
+	#else:
+	#	print("For the " + file_name + " stock, using the labels to trade bankrupted the account after " 
+	#		+ str(last_day - first_day) + " days")
 
 
-y2LabelTrade(file_len_cmg, file_cmg, "Chipotle")
-y2LabelTrade(file_len_spy, file_spy, "Spy")
+cmg_label_final = y2LabelTrade(file_len_cmg, file_cmg)
+spy_label_final = y2LabelTrade(file_len_spy, file_spy)
 
+if cmg_bnh_final > cmg_label_final:
+	print("For the Chipotle stock, using buy-and-hold was more effective with a final balance of $" 
+		+ str(round(cmg_bnh_final, 2)) + " compared to the label trading final balance of $" 
+		+ str(round(cmg_label_final, 2)))
+else:
+	print("For the Chipotle stock, using label trading was more effective with a final balance of $" 
+		+ str(round(cmg_label_final, 2)) + " compared to the buy-and-hold final balance of $" 
+		+ str(round(cmg_bnh_final, 2)))
 
+if spy_bnh_final > spy_label_final:
+	print("For the Spy stock, using buy-and-hold was more effective with a final balance of $" 
+		+ str(round(spy_bnh_final, 2)) + " compared to the label trading final balance of $" 
+		+ str(round(spy_label_final, 2)))
+else:
+	print("For the Spy stock, using label trading was more effective with a final balance of $" 
+		+ str(round(spy_label_final, 2)) + " compared to the buy-and-hold final balance of $" 
+		+ str(round(spy_bnh_final, 2)))
 
 
