@@ -16,3 +16,11 @@ print(file.count())
 # Question 3 =================================================================
 print("\nQuestion 3:")
 print(file.isnull().sum())
+
+
+# Question 4 =================================================================
+print("\nQuestion 4:")
+columns = file.columns
+#for col in columns:
+	#print(pd.isna(file[col]))
+print(pd.isna(file["Awakenings"]))
