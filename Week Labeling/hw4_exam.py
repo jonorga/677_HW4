@@ -55,17 +55,28 @@ output_spy = GenerateDF(file_spy)
 
 
 
-def GeneratePlot(frame, name):
+def GeneratePlot(frame, name, year):
 	scatter_plot = plt.figure()
 	axes1 = scatter_plot.add_subplot(1, 1, 1)
 	axes1.scatter(frame["Avg Return"], frame["Volatility"], color=frame["Color"], s=50)
 	axes1.set_title("Average Return vs Volatility for " + name)
 	axes1.set_xlabel("Average Return")
 	axes1.set_ylabel("Volatility")
-	scatter_plot.savefig(name + "_Avg_Return_VS_Volatility.png")
+	scatter_plot.savefig(name + "_Avg_Return_V_Volatility_Y" + year + ".png")
 
 # One third down the page: https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html
 #TODO separate output into year 1 and 2
-GeneratePlot(output_cmg, "CMG")
-GeneratePlot(output_spy, "SPY")
+year_line_cmg = len(output_cmg.index) / 2
+year_line_spy = len(output_spy.index) / 2
+
+year_1_cmg = output_cmg[output_cmg["Week"] <= year_line_cmg]
+year_2_cmg = output_cmg[output_cmg["Week"] > year_line_cmg]
+year_1_spy = output_spy[output_spy["Week"] <= year_line_spy]
+year_2_spy = output_spy[output_spy["Week"] > year_line_spy]
+
+
+GeneratePlot(year_1_cmg, "CMG", "1")
+GeneratePlot(year_1_spy, "SPY", "1")
+GeneratePlot(year_2_cmg, "CMG", "2")
+GeneratePlot(year_2_spy, "SPY", "2")
 
