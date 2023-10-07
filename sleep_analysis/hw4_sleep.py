@@ -35,14 +35,21 @@ for _rows, _ids in zip(nan_rows, nan_id):
 	# TODO: go through each row in _rows object
 	# TODO: Find a list of people with the same gender from the whole file, excluding themselves
 	# TODO: Find the five people with the closest ages, assign the average or most common label to nan
-	#print(_rows[_ids])
+	
 
 	# Get each row of _rows
 	for index, row in _rows.iterrows():
 		temp = file[file["Gender"] == row["Gender"]]
 		temp = temp.drop(temp[temp.ID == row["ID"]].index)
 		closest = temp.iloc[(temp["Age"]-row["Age"]).abs().argsort()[:5]]
-		# Get five closest people in age from temp frame, assign their value
+		average = 0
+		for index2, row2 in closest.iterrows():
+			average += row2[_ids]
+		average /= 5
+		
+		file.at[row["ID"] - 1, _ids] = average
+
+print(file.isnull().sum())
 
 
 
