@@ -20,7 +20,30 @@ print(file.isnull().sum())
 
 # Question 4 =================================================================
 print("\nQuestion 4:")
+nan_rows = []
+nan_id = []
 columns = file.columns
-#for col in columns:
-	#print(pd.isna(file[col]))
-print(pd.isna(file["Awakenings"]))
+
+for col in columns:
+	temp = file[file[col].isnull()]
+	if len(temp.index) > 0:
+		nan_rows.append(temp)
+		nan_id.append(col)
+
+for _rows, _ids in zip(nan_rows, nan_id):
+	a = 0
+	# TODO: go through each row in _rows object
+	# TODO: Find a list of people with the same gender from the whole file, excluding themselves
+	# TODO: Find the five people with the closest ages, assign the average or most common label to nan
+	#print(_rows[_ids])
+
+	# Get each row of _rows
+	for index, row in _rows.iterrows():
+		temp = file[file["Gender"] == row["Gender"]]
+		temp = temp.drop(temp[temp.ID == row["ID"]].index)
+		closest = temp.iloc[(temp["Age"]-row["Age"]).abs().argsort()[:5]]
+		# Get five closest people in age from temp frame, assign their value
+
+
+
+
