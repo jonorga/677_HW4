@@ -66,11 +66,78 @@ values = ['children', 'teenagers', 'young adults', 'adults', 'older adults']
 
 file['Group'] = np.select(conditions, values)
 print("Groups assigned based on age...")
+file_m = file[file["Gender"] == "Male"]
+file_f = file[file["Gender"] == "Female"]
 
 # Need 6 total tables
 #	Standard deviation and mean for males, females, and both
 b_avg_age = file.groupby('Group')['Age'].mean()
+b_avg_sleepDuration = file.groupby('Group')['Sleep duration'].mean()
+b_avg_sleepEfficiency = file.groupby('Group')['Sleep efficiency'].mean()
+b_avg_remSleepPercentage = file.groupby('Group')['REM sleep percentage'].mean()
+b_avg_deepSleepPercentage = file.groupby('Group')['Deep sleep percentage'].mean()
+b_avg_lightSleepPercentage = file.groupby('Group')['Light sleep percentage'].mean()
+b_avg_awakenings = file.groupby('Group')['Awakenings'].mean()
+b_avg_smokingStatus = file.groupby('Group')['Smoking status'].value_counts()
+b_avg_exerciseFrequency = file.groupby('Group')['Exercise frequency'].mean()
+
+m_avg_age = file_m.groupby('Group')['Age'].mean()
+m_avg_sleepDuration = file_m.groupby('Group')['Sleep duration'].mean()
+m_avg_sleepEfficiency = file_m.groupby('Group')['Sleep efficiency'].mean()
+m_avg_remSleepPercentage = file_m.groupby('Group')['REM sleep percentage'].mean()
+m_avg_deepSleepPercentage = file_m.groupby('Group')['Deep sleep percentage'].mean()
+m_avg_lightSleepPercentage = file_m.groupby('Group')['Light sleep percentage'].mean()
+m_avg_awakenings = file_m.groupby('Group')['Awakenings'].mean()
+m_avg_smokingStatus = file_m.groupby('Group')['Smoking status'].value_counts()
+m_avg_exerciseFrequency = file_m.groupby('Group')['Exercise frequency'].mean()
+
+f_avg_age = file_f.groupby('Group')['Age'].mean()
+f_avg_sleepDuration = file_f.groupby('Group')['Sleep duration'].mean()
+f_avg_sleepEfficiency = file_f.groupby('Group')['Sleep efficiency'].mean()
+f_avg_remSleepPercentage = file_f.groupby('Group')['REM sleep percentage'].mean()
+f_avg_deepSleepPercentage = file_f.groupby('Group')['Deep sleep percentage'].mean()
+f_avg_lightSleepPercentage = file_f.groupby('Group')['Light sleep percentage'].mean()
+f_avg_awakenings = file_f.groupby('Group')['Awakenings'].mean()
+f_avg_smokingStatus = file_f.groupby('Group')['Smoking status'].value_counts()
+f_avg_exerciseFrequency = file_f.groupby('Group')['Exercise frequency'].mean()
 
 
+b_std_age = file.groupby('Group')['Age'].std()
+b_std_sleepDuration = file.groupby('Group')['Sleep duration'].std()
+b_std_sleepEfficiency = file.groupby('Group')['Sleep efficiency'].std()
+b_std_remSleepPercentage = file.groupby('Group')['REM sleep percentage'].std()
+b_std_deepSleepPercentage = file.groupby('Group')['Deep sleep percentage'].std()
+b_std_lightSleepPercentage = file.groupby('Group')['Light sleep percentage'].std()
+b_std_awakenings = file.groupby('Group')['Awakenings'].std()
+b_std_exerciseFrequency = file.groupby('Group')['Exercise frequency'].std()
 
+m_std_age = file_m.groupby('Group')['Age'].std()
+m_std_sleepDuration = file_m.groupby('Group')['Sleep duration'].std()
+m_std_sleepEfficiency = file_m.groupby('Group')['Sleep efficiency'].std()
+m_std_remSleepPercentage = file_m.groupby('Group')['REM sleep percentage'].std()
+m_std_deepSleepPercentage = file_m.groupby('Group')['Deep sleep percentage'].std()
+m_std_lightSleepPercentage = file_m.groupby('Group')['Light sleep percentage'].std()
+m_std_awakenings = file_m.groupby('Group')['Awakenings'].std()
+m_std_exerciseFrequency = file_m.groupby('Group')['Exercise frequency'].std()
+
+f_std_age = file_f.groupby('Group')['Age'].std()
+f_std_sleepDuration = file_f.groupby('Group')['Sleep duration'].std()
+f_std_sleepEfficiency = file_f.groupby('Group')['Sleep efficiency'].std()
+f_std_remSleepPercentage = file_f.groupby('Group')['REM sleep percentage'].std()
+f_std_deepSleepPercentage = file_f.groupby('Group')['Deep sleep percentage'].std()
+f_std_lightSleepPercentage = file_f.groupby('Group')['Light sleep percentage'].std()
+f_std_awakenings = file_f.groupby('Group')['Awakenings'].std()
+f_std_exerciseFrequency = file_f.groupby('Group')['Exercise frequency'].std()
+
+
+def aggData(a1, a2, a3, a4, a5, a6, a7, a8, a9):
+	print(a1["children"])
+
+
+b_avg_data = ["Age", "Duration", "Efficiency", "REM %", "Deep Sleep %",
+ "Light Sleep %", "Awakenings", "Smoking", "Exercise"]
+
+
+aggData(b_avg_age, b_avg_sleepDuration, b_avg_sleepEfficiency, b_avg_remSleepPercentage, b_avg_deepSleepPercentage,
+	b_avg_lightSleepPercentage, b_avg_awakenings, b_avg_smokingStatus, b_avg_exerciseFrequency)
 
