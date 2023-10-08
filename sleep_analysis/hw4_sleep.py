@@ -3,6 +3,7 @@
 ###
 
 import pandas as pd
+import numpy as np
 
 # Question 1 =================================================================
 file = pd.read_csv("Sleep_Efficiency.csv")
@@ -39,14 +40,15 @@ for _rows, _ids in zip(nan_rows, nan_id):
 
 	# Get each row of _rows
 	for index, row in _rows.iterrows():
-		temp = file[file["Gender"] == row["Gender"]]
+		temp = file[(file["Gender"] == row["Gender"]) & (file[_ids] * 0 == 0)]
 		temp = temp.drop(temp[temp.ID == row["ID"]].index)
 		closest = temp.iloc[(temp["Age"]-row["Age"]).abs().argsort()[:5]]
+
 		average = 0
 		for index2, row2 in closest.iterrows():
 			average += row2[_ids]
 		average /= 5
-		
+
 		file.at[row["ID"] - 1, _ids] = average
 
 print(file.isnull().sum())
