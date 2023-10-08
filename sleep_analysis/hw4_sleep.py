@@ -51,7 +51,25 @@ for _rows, _ids in zip(nan_rows, nan_id):
 
 		file.at[row["ID"] - 1, _ids] = average
 
-print(file.isnull().sum())
+print("Values imputed...\n")
+# Question 5 =================================================================
+print("Question 5:")
+conditions = [
+	(file['Age'] <= 12),
+	(file['Age'] > 12) & (file['Age'] <= 17),
+	(file['Age'] > 17) & (file['Age'] <= 30),
+	(file['Age'] > 30) & (file['Age'] <= 60),
+	(file['Age'] > 60)
+	]
+
+values = ['children', 'teenagers', 'young adults', 'adults', 'older adults']
+
+file['Group'] = np.select(conditions, values)
+print("Groups assigned based on age...")
+
+# Need 6 total tables
+#	Standard deviation and mean for males, females, and both
+b_avg_age = file.groupby('Group')['Age'].mean()
 
 
 
