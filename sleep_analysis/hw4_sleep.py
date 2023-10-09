@@ -4,6 +4,7 @@
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Question 1 =================================================================
 file = pd.read_csv("Sleep_Efficiency.csv")
@@ -130,14 +131,66 @@ f_std_awakenings = file_f.groupby('Group')['Awakenings'].std()
 f_std_exerciseFrequency = file_f.groupby('Group')['Exercise frequency'].std()
 
 
-def aggData(a1, a2, a3, a4, a5, a6, a7, a8, a9):
-	print(a1["children"])
+def aggData(a1, a2, a3, a4, a5, a6, a7, a8, a9, std_list):
+	data = [["Age", "Duration", "Efficiency", "REM %", "Deep Sleep %", 
+		"Light Sleep %", "Awakenings", "Smoking", "Exercise"]]
+	if std_list:
+		smoking = ["N/A"] * 5
+	else:
+		smoking = []
+		smoking.append("Yes")
+		if a8["teenagers", "Yes"] > a8["teenagers", "No"]:
+			smoking.append("Yes")
+		else:
+			smoking.append("No")
+		if a8["young adults", "Yes"] > a8["young adults", "No"]:
+			smoking.append("Yes")
+		else:
+			smoking.append("No")
+		if a8["adults", "Yes"] > a8["adults", "No"]:
+			smoking.append("Yes")
+		else:
+			smoking.append("No")
+		if a8["older adults", "Yes"] > a8["older adults", "No"]:
+			smoking.append("Yes")
+		else:
+			smoking.append("No")
+	data.append([a1["children"], a2["children"], a3["children"], a4["children"], a5["children"], a6["children"],
+				a7["children"], smoking[0], a9["children"]])
+	data.append([a1["teenagers"], a2["teenagers"], a3["teenagers"], a4["teenagers"], a5["teenagers"], a6["teenagers"],
+				a7["teenagers"], smoking[1], a9["teenagers"]])
+	data.append([a1["young adults"], a2["young adults"], a3["young adults"], a4["young adults"], a5["young adults"], 
+				a6["young adults"], a7["young adults"], smoking[2], a9["young adults"]])
+	data.append([a1["adults"], a2["adults"], a3["adults"], a4["adults"], a5["adults"], a6["adults"],
+				a7["adults"], smoking[3], a9["adults"]])
+	data.append([a1["older adults"], a2["older adults"], a3["older adults"], a4["older adults"], a5["older adults"], 
+				a6["older adults"], a7["older adults"], smoking[4], a9["older adults"]])
+
+	return data
 
 
-b_avg_data = ["Age", "Duration", "Efficiency", "REM %", "Deep Sleep %",
- "Light Sleep %", "Awakenings", "Smoking", "Exercise"]
+def generateTable(data, name):
+	data = zip(*data)
+	df = pd.DataFrame(data, columns=[name, 'Children', 'Teenagers', 'Young Adults', 'Adults', 'Older Adults'])
+	fig, ax = plt.subplots()
+	fig.patch.set_visible(False)
+	ax.axis('off')
+	ax.axis('tight')
+	ax.table(cellText=df.values, colLabels=df.columns, loc='center')
+
+	print("Saving", name, "Table...")
+	fig.savefig(name + "_Table.png", dpi=1200)
 
 
-aggData(b_avg_age, b_avg_sleepDuration, b_avg_sleepEfficiency, b_avg_remSleepPercentage, b_avg_deepSleepPercentage,
-	b_avg_lightSleepPercentage, b_avg_awakenings, b_avg_smokingStatus, b_avg_exerciseFrequency)
+
+
+
+b_avg_data = aggData(b_avg_age, b_avg_sleepDuration, b_avg_sleepEfficiency, b_avg_remSleepPercentage, b_avg_deepSleepPercentage,
+	b_avg_lightSleepPercentage, b_avg_awakenings, b_avg_smokingStatus, b_avg_exerciseFrequency, False)
+
+
+generateTable(b_avg_data, "Both_Averages")
+
+
+
 
