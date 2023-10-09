@@ -138,23 +138,124 @@ def aggData(a1, a2, a3, a4, a5, a6, a7, a8, a9, std_list):
 		smoking = ["N/A"] * 5
 	else:
 		smoking = []
-		smoking.append("Yes")
-		if a8["teenagers", "Yes"] > a8["teenagers", "No"]:
-			smoking.append("Yes")
+
+		if 'children' in a8:
+			c_in_list = True
 		else:
-			smoking.append("No")
-		if a8["young adults", "Yes"] > a8["young adults", "No"]:
-			smoking.append("Yes")
+			c_in_list = False
+		if 'teenagers' in a8:
+			t_in_list = True
 		else:
-			smoking.append("No")
-		if a8["adults", "Yes"] > a8["adults", "No"]:
-			smoking.append("Yes")
+			t_in_list = False
+		if 'young adults' in a8:
+			y_in_list = True
 		else:
-			smoking.append("No")
-		if a8["older adults", "Yes"] > a8["older adults", "No"]:
-			smoking.append("Yes")
+			y_in_list = False
+		if 'adults' in a8:
+			a_in_list = True
 		else:
-			smoking.append("No")
+			a_in_list = False
+		if 'older adults' in a8:
+			o_in_list = True
+		else:
+			o_in_list = False
+		
+
+		if c_in_list:
+			if len(a8['children'].index) == 1:
+				temp = a8['children']
+				if 'Yes' in temp:
+					smoking.append("Yes")
+				elif 'No' in temp:
+					smoking.append("No")
+				else:
+					smoking.append("N/A")
+			elif a8["children", "Yes"] > a8["children", "No"]:
+				smoking.append("Yes")
+			else:
+				smoking.append("No")
+		else:
+			smoking.append("N/A")
+
+		if t_in_list:
+			if len(a8['teenagers'].index) == 1:
+				temp = a8['teenagers']
+				if 'Yes' in temp:
+					smoking.append("Yes")
+				elif 'No' in temp:
+					smoking.append("No")
+				else:
+					smoking.append("N/A")
+			elif a8["teenagers", "Yes"] > a8["teenagers", "No"]:
+				smoking.append("Yes")
+			else:
+				smoking.append("No")
+		else:
+			smoking.append("N/A")
+
+		if y_in_list:
+			if len(a8['young adults'].index) == 1:
+				temp = a8['young adults']
+				if 'Yes' in temp:
+					smoking.append("Yes")
+				elif 'No' in temp:
+					smoking.append("No")
+				else:
+					smoking.append("N/A")
+			elif a8["young adults", "Yes"] > a8["young adults", "No"]:
+				smoking.append("Yes")
+			else:
+				smoking.append("No")
+		else:
+			smoking.append("N/A")
+
+		if a_in_list:
+			if len(a8['adults'].index) == 1:
+				temp = a8['adults']
+				if 'Yes' in temp:
+					smoking.append("Yes")
+				elif 'No' in temp:
+					smoking.append("No")
+				else:
+					smoking.append("N/A")
+			elif a8["adults", "Yes"] > a8["adults", "No"]:
+				smoking.append("Yes")
+			else:
+				smoking.append("No")
+		else:
+			smoking.append("N/A")
+
+		if o_in_list:
+			if len(a8['older adults'].index) == 1:
+				temp = a8['older adults']
+				if 'Yes' in temp:
+					smoking.append("Yes")
+				elif 'No' in temp:
+					smoking.append("No")
+				else:
+					smoking.append("N/A")
+			elif a8["older adults", "Yes"] > a8["older adults", "No"]:
+				smoking.append("Yes")
+			else:
+				smoking.append("No")
+		else:
+			smoking.append("N/A")
+
+	inputs = [a1, a2, a3, a4, a5, a6, a7, a9]
+
+	for val in inputs:
+		if 'children' not in val:
+			val["children"] = "N/A"
+		if 'teenagers' not in val:
+			val["teenagers"] = "N/A"
+		if 'young adults' not in val:
+			val["young adults"] = "N/A"
+		if 'adults' not in val:
+			val["adults"] = "N/A"
+		if 'older adults' not in val:
+			val["older adults"] = "N/A"
+
+
 	data.append([a1["children"], a2["children"], a3["children"], a4["children"], a5["children"], a6["children"],
 				a7["children"], smoking[0], a9["children"]])
 	data.append([a1["teenagers"], a2["teenagers"], a3["teenagers"], a4["teenagers"], a5["teenagers"], a6["teenagers"],
@@ -187,9 +288,28 @@ def generateTable(data, name):
 
 b_avg_data = aggData(b_avg_age, b_avg_sleepDuration, b_avg_sleepEfficiency, b_avg_remSleepPercentage, b_avg_deepSleepPercentage,
 	b_avg_lightSleepPercentage, b_avg_awakenings, b_avg_smokingStatus, b_avg_exerciseFrequency, False)
+b_std_data = aggData(b_std_age, b_std_sleepDuration, b_std_sleepEfficiency, b_std_remSleepPercentage, b_std_deepSleepPercentage,
+	b_std_lightSleepPercentage, b_std_awakenings, b_avg_smokingStatus, b_std_exerciseFrequency, True)
+
+m_avg_data = aggData(m_avg_age, m_avg_sleepDuration, m_avg_sleepEfficiency, m_avg_remSleepPercentage, m_avg_deepSleepPercentage,
+	m_avg_lightSleepPercentage, m_avg_awakenings, m_avg_smokingStatus, m_avg_exerciseFrequency, False)
+m_std_data = aggData(m_std_age, m_std_sleepDuration, m_std_sleepEfficiency, m_std_remSleepPercentage, m_std_deepSleepPercentage,
+	m_std_lightSleepPercentage, m_std_awakenings, m_avg_smokingStatus, m_std_exerciseFrequency, True)
+
+f_avg_data = aggData(f_avg_age, f_avg_sleepDuration, f_avg_sleepEfficiency, f_avg_remSleepPercentage, f_avg_deepSleepPercentage,
+	f_avg_lightSleepPercentage, f_avg_awakenings, f_avg_smokingStatus, f_avg_exerciseFrequency, False)
+f_std_data = aggData(f_std_age, f_std_sleepDuration, f_std_sleepEfficiency, f_std_remSleepPercentage, f_std_deepSleepPercentage,
+	f_std_lightSleepPercentage, f_std_awakenings, f_avg_smokingStatus, f_std_exerciseFrequency, True)
 
 
 generateTable(b_avg_data, "Both_Averages")
+generateTable(b_std_data, "Both_Deviation")
+
+generateTable(m_avg_data, "Male_Averages")
+generateTable(m_std_data, "Male_Deviation")
+
+generateTable(f_avg_data, "Female_Averages")
+generateTable(f_std_data, "Female_Deviation")
 
 
 
