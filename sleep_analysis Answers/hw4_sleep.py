@@ -312,5 +312,41 @@ generateTable(f_avg_data, "Female_Averages")
 generateTable(f_std_data, "Female_Deviation")
 
 
+# Question 6 =================================================================
+print("\nQuestion 6:")
+print("Female children sleep the most with an average sleep duration of 8.375")
+print("Male adults sleep the least with an average sleep duration of 7.398")
+print("Female children wake up the most with an average of 2.5 awakenings per night")
+print("Female young adults wake up the least with an average of 1.441 awakenings per night")
+
+
+# Question 7 =================================================================
+print("\nQuestion 7:")
+print("Male adults have the highest sleep effeciency at 80.6%")
+print("Female children have the lowest sleep effeciency at 54.25%")
+
+
+# Question 8 =================================================================
+print("\nQuestion 8:")
+print("In general, the more exercise a person gets, the less they sleep")
+
+
+# Question 9 =================================================================
+print("\nQuestion 9:")
+print("In general, the averages table shows that smokers sleep more than non-smokers")
+
+
+# Question 10 =================================================================
+print("\nQuestion 10:")
+print("The first thing I noticed about the table is the lower number of participants under the age"
+	+ "\nof teenager results in the children and teenager groups having much more volatile answers."
+	+ "\nThis is further seen in the male tables given that there are no children or teenagers in"
+	+ "\nthe male group at all. One other prevalent are is that deep sleep percentages are much"
+	+ "\nlower for children and teenagers, where as light sleep is significantly higher for these"
+	+ "\ngroups. The largest areas of deviation in general are in the REM sleep for the all adults."
+	+ "\nAdults seem to have the largest deviation but this could be due to the larger sample size.")
+
+
+
 
 
